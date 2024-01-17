@@ -1,0 +1,23 @@
+# name: test/sql/litegeo.test
+# description: test litegeo extension
+# group: [litegeo]
+
+# Before we load the extension, this will fail
+statement error
+SELECT litegeo('Sam');
+----
+Catalog Error: Scalar Function with name litegeo does not exist!
+
+# Require statement will ensure this test is run with this extension loaded
+require litegeo
+
+# Confirm the extension works
+query I
+SELECT litegeo('Sam');
+----
+Litegeo Sam 🐥
+
+query I
+SELECT litegeo_openssl_version('Michael');
+----
+<REGEX>:Litegeo Michael, my linked OpenSSL version is OpenSSL.*
